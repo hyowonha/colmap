@@ -29,14 +29,8 @@
 #
 # Author: Johannes L. Schoenberger (jsch-at-demuc-dot-de)
 
-set(FOLDER_NAME "optim")
+set(FOLDER_NAME "feature/test")
 
-COLMAP_ADD_SOURCES(
-    bundle_adjustment.h bundle_adjustment.cc
-    combination_sampler.h combination_sampler.cc
-    least_absolute_deviations.h least_absolute_deviations.cc
-    progressive_sampler.h progressive_sampler.cc
-    random_sampler.h random_sampler.cc
-    sprt.h sprt.cc
-    support_measurement.h support_measurement.cc
-)
+COLMAP_ADD_TEST(feature_utils_test utils_test.cc)
+COLMAP_ADD_TEST(sift_test sift_test.cc)
+COLMAP_ADD_TEST(types_test types_test.cc)

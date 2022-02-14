@@ -29,14 +29,18 @@
 #
 # Author: Johannes L. Schoenberger (jsch-at-demuc-dot-de)
 
-set(FOLDER_NAME "optim")
+set(FOLDER_NAME "util/test")
 
-COLMAP_ADD_SOURCES(
-    bundle_adjustment.h bundle_adjustment.cc
-    combination_sampler.h combination_sampler.cc
-    least_absolute_deviations.h least_absolute_deviations.cc
-    progressive_sampler.h progressive_sampler.cc
-    random_sampler.h random_sampler.cc
-    sprt.h sprt.cc
-    support_measurement.h support_measurement.cc
-)
+COLMAP_ADD_TEST(bitmap_test bitmap_test.cc)
+COLMAP_ADD_TEST(cache_test cache_test.cc)
+COLMAP_ADD_TEST(endian_test endian_test.cc)
+COLMAP_ADD_TEST(math_test math_test.cc)
+COLMAP_ADD_TEST(matrix_test matrix_test.cc)
+COLMAP_ADD_TEST(misc_test misc_test.cc)
+COLMAP_ADD_TEST(random_test random_test.cc)
+COLMAP_ADD_TEST(string_test string_test.cc)
+COLMAP_ADD_TEST(threading_test threading_test.cc)
+COLMAP_ADD_TEST(timer_test timer_test.cc)
+if(GUI_ENABLED)
+    COLMAP_ADD_TEST(opengl_utils_test opengl_utils_test.cc)
+endif()

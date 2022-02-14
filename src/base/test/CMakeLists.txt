@@ -29,14 +29,33 @@
 #
 # Author: Johannes L. Schoenberger (jsch-at-demuc-dot-de)
 
-set(FOLDER_NAME "optim")
+set(FOLDER_NAME "base/test")
 
-COLMAP_ADD_SOURCES(
-    bundle_adjustment.h bundle_adjustment.cc
-    combination_sampler.h combination_sampler.cc
-    least_absolute_deviations.h least_absolute_deviations.cc
-    progressive_sampler.h progressive_sampler.cc
-    random_sampler.h random_sampler.cc
-    sprt.h sprt.cc
-    support_measurement.h support_measurement.cc
-)
+COLMAP_ADD_TEST(camera_database_test camera_database_test.cc)
+COLMAP_ADD_TEST(camera_models_test camera_models_test.cc)
+COLMAP_ADD_TEST(camera_rig_test camera_rig_test.cc)
+COLMAP_ADD_TEST(camera_test camera_test.cc)
+COLMAP_ADD_TEST(correspondence_graph_test correspondence_graph_test.cc)
+COLMAP_ADD_TEST(cost_functions_test cost_functions_test.cc)
+COLMAP_ADD_TEST(database_cache_test database_cache_test.cc)
+COLMAP_ADD_TEST(database_test database_test.cc)
+COLMAP_ADD_TEST(essential_matrix_utils_test essential_matrix_test.cc)
+COLMAP_ADD_TEST(gps_test gps_test.cc)
+COLMAP_ADD_TEST(graph_cut_test graph_cut_test.cc)
+COLMAP_ADD_TEST(homography_matrix_utils_test homography_matrix_test.cc)
+COLMAP_ADD_TEST(image_test image_test.cc)
+COLMAP_ADD_TEST(line_test line_test.cc)
+COLMAP_ADD_TEST(point2d_test point2d_test.cc)
+COLMAP_ADD_TEST(point3d_test point3d_test.cc)
+COLMAP_ADD_TEST(polynomial_test polynomial_test.cc)
+COLMAP_ADD_TEST(pose_test pose_test.cc)
+COLMAP_ADD_TEST(projection_test projection_test.cc)
+COLMAP_ADD_TEST(reconstruction_test reconstruction_test.cc)
+COLMAP_ADD_TEST(reconstruction_manager_test reconstruction_manager_test.cc)
+COLMAP_ADD_TEST(scene_clustering_test scene_clustering_test.cc)
+COLMAP_ADD_TEST(similarity_transform_test similarity_transform_test.cc)
+COLMAP_ADD_TEST(track_test track_test.cc)
+COLMAP_ADD_TEST(triangulation_test triangulation_test.cc)
+COLMAP_ADD_TEST(undistortion_test undistortion_test.cc)
+COLMAP_ADD_TEST(visibility_pyramid_test visibility_pyramid_test.cc)
+COLMAP_ADD_TEST(warp_test warp_test.cc)

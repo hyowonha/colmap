@@ -49,15 +49,3 @@ COLMAP_ADD_SOURCES(
     two_view_geometry.h two_view_geometry.cc
     utils.h utils.cc
 )
-
-COLMAP_ADD_TEST(absolute_pose_test absolute_pose_test.cc)
-COLMAP_ADD_TEST(affine_transform_test affine_transform_test.cc)
-COLMAP_ADD_TEST(coordinate_frame_test coordinate_frame_test.cc)
-COLMAP_ADD_TEST(essential_matrix_test essential_matrix_test.cc)
-COLMAP_ADD_TEST(estimators_utils_test utils_test.cc)
-COLMAP_ADD_TEST(fundamental_matrix_test fundamental_matrix_test.cc)
-COLMAP_ADD_TEST(generalized_absolute_pose_test generalized_absolute_pose_test.cc)
-COLMAP_ADD_TEST(generalized_relative_pose_test generalized_relative_pose_test.cc)
-COLMAP_ADD_TEST(homography_matrix_test homography_matrix_test.cc)
-COLMAP_ADD_TEST(translation_transform_test translation_transform_test.cc)
-COLMAP_ADD_TEST(two_view_geometry_test two_view_geometry_test.cc)

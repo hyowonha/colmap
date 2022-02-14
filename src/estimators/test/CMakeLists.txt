@@ -29,14 +29,16 @@
 #
 # Author: Johannes L. Schoenberger (jsch-at-demuc-dot-de)
 
-set(FOLDER_NAME "optim")
+set(FOLDER_NAME "estimators/test")
 
-COLMAP_ADD_SOURCES(
-    bundle_adjustment.h bundle_adjustment.cc
-    combination_sampler.h combination_sampler.cc
-    least_absolute_deviations.h least_absolute_deviations.cc
-    progressive_sampler.h progressive_sampler.cc
-    random_sampler.h random_sampler.cc
-    sprt.h sprt.cc
-    support_measurement.h support_measurement.cc
-)
+COLMAP_ADD_TEST(absolute_pose_test absolute_pose_test.cc)
+COLMAP_ADD_TEST(affine_transform_test affine_transform_test.cc)
+COLMAP_ADD_TEST(coordinate_frame_test coordinate_frame_test.cc)
+COLMAP_ADD_TEST(essential_matrix_test essential_matrix_test.cc)
+COLMAP_ADD_TEST(estimators_utils_test utils_test.cc)
+COLMAP_ADD_TEST(fundamental_matrix_test fundamental_matrix_test.cc)
+COLMAP_ADD_TEST(generalized_absolute_pose_test generalized_absolute_pose_test.cc)
+COLMAP_ADD_TEST(generalized_relative_pose_test generalized_relative_pose_test.cc)
+COLMAP_ADD_TEST(homography_matrix_test homography_matrix_test.cc)
+COLMAP_ADD_TEST(translation_transform_test translation_transform_test.cc)
+COLMAP_ADD_TEST(two_view_geometry_test two_view_geometry_test.cc)

@@ -38,7 +38,3 @@ COLMAP_ADD_SOURCES(
     types.h types.cc
     utils.h utils.cc
 )
-
-COLMAP_ADD_TEST(feature_utils_test utils_test.cc)
-COLMAP_ADD_TEST(sift_test sift_test.cc)
-COLMAP_ADD_TEST(types_test types_test.cc)
