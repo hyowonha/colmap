@@ -906,61 +906,6 @@ bool ExtractSiftFeaturesGPU(const SiftExtractionOptions& options,
   return true;
 }
 
-void LoadSiftFeaturesFromTextFile(const std::string& path,
-                                  FeatureKeypoints* keypoints,
-                                  FeatureDescriptors* descriptors) {
-  CHECK_NOTNULL(keypoints);
-  CHECK_NOTNULL(descriptors);
-
-  std::ifstream file(path.c_str());
-  CHECK(file.is_open()) << path;
-
-  std::string line;
-  std::string item;
-
-  std::getline(file, line);
-  std::stringstream header_line_stream(line);
-
-  std::getline(header_line_stream >> std::ws, item, ' ');
-  const point2D_t num_features = std::stoul(item);
-
-  std::getline(header_line_stream >> std::ws, item, ' ');
-  const size_t dim = std::stoul(item);
-
-  CHECK_EQ(dim, 128) << "SIFT features must have 128 dimensions";
-
-  keypoints->resize(num_features);
-  descriptors->resize(num_features, dim);
-
-  for (size_t i = 0; i < num_features; ++i) {
-    std::getline(file, line);
-    std::stringstream feature_line_stream(line);
-
-    std::getline(feature_line_stream >> std::ws, item, ' ');
-    const float x = std::stold(item);
-
-    std::getline(feature_line_stream >> std::ws, item, ' ');
-    const float y = std::stold(item);
-
-    std::getline(feature_line_stream >> std::ws, item, ' ');
-    const float scale = std::stold(item);
-
-    std::getline(feature_line_stream >> std::ws, item, ' ');
-    const float orientation = std::stold(item);
-
-    (*keypoints)[i] = FeatureKeypoint(x, y, scale, orientation);
-
-    // Descriptor
-    for (size_t j = 0; j < dim; ++j) {
-      std::getline(feature_line_stream >> std::ws, item, ' ');
-      const float value = std::stod(item);
-      CHECK_GE(value, 0);
-      CHECK_LE(value, 255);
-      (*descriptors)(i, j) = TruncateCast<float, uint8_t>(value);
-    }
-  }
-}
-
 void MatchSiftFeaturesCPUBruteForce(const SiftMatchingOptions& match_options,
                                     const FeatureDescriptors& descriptors1,
                                     const FeatureDescriptors& descriptors2,

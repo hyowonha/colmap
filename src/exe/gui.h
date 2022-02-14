@@ -51,6 +51,5 @@ const bool kUseOpenGL = true;
 #endif
 
 int RunGraphicalUserInterface(int argc, char** argv);
-int RunProjectGenerator(int argc, char** argv);
 
 }  // namespace colmap

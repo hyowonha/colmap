@@ -57,16 +57,6 @@ class SIFTExtractionWidget : public ExtractionWidget {
   void Run() override;
 };
 
-class ImportFeaturesWidget : public ExtractionWidget {
- public:
-  ImportFeaturesWidget(QWidget* parent, OptionManager* options);
-
-  void Run() override;
-
- private:
-  std::string import_path_;
-};
-
 ExtractionWidget::ExtractionWidget(QWidget* parent, OptionManager* options)
     : OptionsWidget(parent),
       options_(options),
@@ -118,28 +108,6 @@ void SIFTExtractionWidget::Run() {
   thread_control_widget_->StartThread("Extracting...", true, extractor);
 }
 
-ImportFeaturesWidget::ImportFeaturesWidget(QWidget* parent,
-                                           OptionManager* options)
-    : ExtractionWidget(parent, options) {
-  AddOptionDirPath(&import_path_, "import_path");
-}
-
-void ImportFeaturesWidget::Run() {
-  WriteOptions();
-
-  if (!ExistsDir(import_path_)) {
-    QMessageBox::critical(this, "", tr("Path is not a directory"));
-    return;
-  }
-
-  ImageReaderOptions reader_options = *options_->image_reader;
-  reader_options.database_path = *options_->database_path;
-  reader_options.image_path = *options_->image_path;
-
-  Thread* importer = new FeatureImporter(reader_options, import_path_);
-  thread_control_widget_->StartThread("Importing...", true, importer);
-}
-
 FeatureExtractionWidget::FeatureExtractionWidget(QWidget* parent,
                                                  OptionManager* options)
     : parent_(parent), options_(options) {
@@ -158,11 +126,6 @@ FeatureExtractionWidget::FeatureExtractionWidget(QWidget* parent,
   extraction_widget->setAlignment(Qt::AlignHCenter);
   extraction_widget->setWidget(new SIFTExtractionWidget(this, options));
   tab_widget_->addTab(extraction_widget, tr("Extract"));
-
-  QScrollArea* import_widget = new QScrollArea(this);
-  import_widget->setAlignment(Qt::AlignHCenter);
-  import_widget->setWidget(new ImportFeaturesWidget(this, options));
-  tab_widget_->addTab(import_widget, tr("Import"));
 
   grid->addWidget(tab_widget_);
 

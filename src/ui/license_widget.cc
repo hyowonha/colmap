@@ -51,8 +51,6 @@ LicenseWidget::LicenseWidget(QWidget* parent) : QTextEdit(parent) {
   licenses += GetLSDLicense();
   licenses += "<h3>PBA</h3>";
   licenses += GetPBALicense();
-  licenses += "<h3>PoissonRecon</h3>";
-  licenses += GetPoissonReconLicense();
   licenses += "<h3>SiftGPU</h3>";
   licenses += GetSiftGPULicense();
   licenses += "<h3>SQLite</h3>";

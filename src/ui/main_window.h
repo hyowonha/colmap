@@ -38,10 +38,8 @@
 
 #include "base/reconstruction.h"
 #include "controllers/incremental_mapper.h"
-#include "ui/automatic_reconstruction_widget.h"
 #include "ui/bundle_adjustment_widget.h"
 #include "ui/database_management_widget.h"
-#include "ui/dense_reconstruction_widget.h"
 #include "ui/feature_extraction_widget.h"
 #include "ui/feature_matching_widget.h"
 #include "ui/license_widget.h"
@@ -68,9 +66,7 @@ class MainWindow : public QMainWindow {
   void closeEvent(QCloseEvent* event);
 
  private:
-  friend class AutomaticReconstructionWidget;
   friend class BundleAdjustmentWidget;
-  friend class DenseReconstructionWidget;
 
   void CreateWidgets();
   void CreateActions();
@@ -95,8 +91,6 @@ class MainWindow : public QMainWindow {
   void FeatureMatching();
   void DatabaseManagement();
 
-  void AutomaticReconstruction();
-
   void ReconstructionStart();
   void ReconstructionStep();
   void ReconstructionPause();
@@ -107,7 +101,6 @@ class MainWindow : public QMainWindow {
   bool ReconstructionOverwrite();
 
   void BundleAdjustment();
-  void DenseReconstruction();
 
   void Render();
   void RenderNow();
@@ -156,10 +149,8 @@ class MainWindow : public QMainWindow {
   FeatureExtractionWidget* feature_extraction_widget_;
   FeatureMatchingWidget* feature_matching_widget_;
   DatabaseManagementWidget* database_management_widget_;
-  AutomaticReconstructionWidget* automatic_reconstruction_widget_;
   ReconstructionOptionsWidget* reconstruction_options_widget_;
   BundleAdjustmentWidget* bundle_adjustment_widget_;
-  DenseReconstructionWidget* dense_reconstruction_widget_;
   RenderOptionsWidget* render_options_widget_;
   LogWidget* log_widget_;
   UndistortionWidget* undistortion_widget_;
@@ -197,8 +188,6 @@ class MainWindow : public QMainWindow {
   QAction* action_feature_matching_;
   QAction* action_database_management_;
 
-  QAction* action_automatic_reconstruction_;
-
   QAction* action_reconstruction_start_;
   QAction* action_reconstruction_step_;
   QAction* action_reconstruction_pause_;
@@ -208,7 +197,6 @@ class MainWindow : public QMainWindow {
   QAction* action_reconstruction_options_;
 
   QAction* action_bundle_adjustment_;
-  QAction* action_dense_reconstruction_;
 
   QAction* action_render_;
   QAction* action_render_now_;

@@ -34,7 +34,7 @@
 namespace colmap {
 
 std::string GetVersionInfo() {
-  return StringPrintf("COLMAP %s", COLMAP_VERSION.c_str());
+  return StringPrintf("Minimal COLMAP %s", COLMAP_VERSION.c_str());
 }
 
 std::string GetBuildInfo() {

@@ -73,34 +73,4 @@ int RunGraphicalUserInterface(int argc, char** argv) {
 #endif
 }
 
-int RunProjectGenerator(int argc, char** argv) {
-  std::string output_path;
-  std::string quality = "high";
-
-  OptionManager options;
-  options.AddRequiredOption("output_path", &output_path);
-  options.AddDefaultOption("quality", &quality, "{low, medium, high, extreme}");
-  options.Parse(argc, argv);
-
-  OptionManager output_options;
-  output_options.AddAllOptions();
-
-  StringToLower(&quality);
-  if (quality == "low") {
-    output_options.ModifyForLowQuality();
-  } else if (quality == "medium") {
-    output_options.ModifyForMediumQuality();
-  } else if (quality == "high") {
-    output_options.ModifyForHighQuality();
-  } else if (quality == "extreme") {
-    output_options.ModifyForExtremeQuality();
-  } else {
-    LOG(FATAL) << "Invalid quality provided";
-  }
-
-  output_options.Write(output_path);
-
-  return EXIT_SUCCESS;
-}
-
 }  // namespace colmap

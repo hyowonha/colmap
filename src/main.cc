@@ -29,14 +29,8 @@
 //
 // Author: Johannes L. Schoenberger (jsch-at-demuc-dot-de)
 
-#include "exe/database.h"
-#include "exe/feature.h"
 #include "exe/gui.h"
-#include "exe/image.h"
-#include "exe/model.h"
-#include "exe/mvs.h"
 #include "exe/sfm.h"
-#include "exe/vocab_tree.h"
 #include "util/version.h"
 
 namespace {
@@ -48,7 +42,7 @@ int ShowHelp(
   using namespace colmap;
 
   std::cout << StringPrintf(
-                   "%s -- Structure-from-Motion and Multi-View Stereo\n"
+                   "%s -- Structure-from-Motion\n"
                    "              (%s)",
                    GetVersionInfo().c_str(), GetBuildInfo().c_str())
             << std::endl
@@ -68,15 +62,6 @@ int ShowHelp(
   std::cout << "  colmap automatic_reconstructor --image_path IMAGES "
                "--workspace_path WORKSPACE"
             << std::endl;
-  std::cout << "  colmap feature_extractor --image_path IMAGES --database_path "
-               "DATABASE"
-            << std::endl;
-  std::cout << "  colmap exhaustive_matcher --database_path DATABASE"
-            << std::endl;
-  std::cout << "  colmap mapper --image_path IMAGES --database_path DATABASE "
-               "--output_path MODEL"
-            << std::endl;
-  std::cout << "  ..." << std::endl << std::endl;
 
   std::cout << "Available commands:" << std::endl;
   std::cout << "  help" << std::endl;
@@ -100,50 +85,8 @@ int main(int argc, char** argv) {
 
   std::vector<std::pair<std::string, command_func_t>> commands;
   commands.emplace_back("gui", &RunGraphicalUserInterface);
-  commands.emplace_back("automatic_reconstructor", &RunAutomaticReconstructor);
-  commands.emplace_back("bundle_adjuster", &RunBundleAdjuster);
-  commands.emplace_back("color_extractor", &RunColorExtractor);
-  commands.emplace_back("database_cleaner", &RunDatabaseCleaner);
-  commands.emplace_back("database_creator", &RunDatabaseCreator);
-  commands.emplace_back("database_merger", &RunDatabaseMerger);
-  commands.emplace_back("delaunay_mesher", &RunDelaunayMesher);
-  commands.emplace_back("exhaustive_matcher", &RunExhaustiveMatcher);
-  commands.emplace_back("feature_extractor", &RunFeatureExtractor);
-  commands.emplace_back("feature_importer", &RunFeatureImporter);
-  commands.emplace_back("hierarchical_mapper", &RunHierarchicalMapper);
-  commands.emplace_back("image_deleter", &RunImageDeleter);
-  commands.emplace_back("image_filterer", &RunImageFilterer);
-  commands.emplace_back("image_rectifier", &RunImageRectifier);
-  commands.emplace_back("image_registrator", &RunImageRegistrator);
-  commands.emplace_back("image_undistorter", &RunImageUndistorter);
-  commands.emplace_back("image_undistorter_standalone",
-                        &RunImageUndistorterStandalone);
-  commands.emplace_back("mapper", &RunMapper);
-  commands.emplace_back("matches_importer", &RunMatchesImporter);
-  commands.emplace_back("model_aligner", &RunModelAligner);
-  commands.emplace_back("model_analyzer", &RunModelAnalyzer);
-  commands.emplace_back("model_comparer", &RunModelComparer);
-  commands.emplace_back("model_converter", &RunModelConverter);
-  commands.emplace_back("model_cropper", &RunModelCropper);
-  commands.emplace_back("model_merger", &RunModelMerger);
-  commands.emplace_back("model_orientation_aligner",
-                        &RunModelOrientationAligner);
-  commands.emplace_back("model_splitter", &RunModelSplitter);
-  commands.emplace_back("model_transformer", &RunModelTransformer);
-  commands.emplace_back("patch_match_stereo", &RunPatchMatchStereo);
-  commands.emplace_back("point_filtering", &RunPointFiltering);
-  commands.emplace_back("point_triangulator", &RunPointTriangulator);
-  commands.emplace_back("poisson_mesher", &RunPoissonMesher);
-  commands.emplace_back("project_generator", &RunProjectGenerator);
-  commands.emplace_back("rig_bundle_adjuster", &RunRigBundleAdjuster);
-  commands.emplace_back("sequential_matcher", &RunSequentialMatcher);
-  commands.emplace_back("spatial_matcher", &RunSpatialMatcher);
-  commands.emplace_back("stereo_fusion", &RunStereoFuser);
-  commands.emplace_back("transitive_matcher", &RunTransitiveMatcher);
-  commands.emplace_back("vocab_tree_builder", &RunVocabTreeBuilder);
-  commands.emplace_back("vocab_tree_matcher", &RunVocabTreeMatcher);
-  commands.emplace_back("vocab_tree_retriever", &RunVocabTreeRetriever);
-
+  commands.emplace_back("sfm", &RunSfM);
+  
   if (argc == 1) {
     return ShowHelp(commands);
   }

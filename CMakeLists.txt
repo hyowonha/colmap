@@ -352,7 +352,6 @@ set(COLMAP_INTERNAL_LIBRARIES
     graclus
     lsd
     pba
-    poisson_recon
     sqlite3
     sift_gpu
     vlfeat
@@ -378,7 +377,6 @@ COLMAP_ADD_SOURCE_DIR(lib/FLANN LIB_FLANN_SRCS *.h *.cpp *.hpp *.cu)
 COLMAP_ADD_SOURCE_DIR(lib/Graclus LIB_GRACLUS_SRCS *.h *.c)
 COLMAP_ADD_SOURCE_DIR(lib/LSD LIB_LSD_SRCS *.h *.c)
 COLMAP_ADD_SOURCE_DIR(lib/PBA LIB_PBA_SRCS *.h *.cpp *.cu)
-COLMAP_ADD_SOURCE_DIR(lib/PoissonRecon LIB_POISSON_RECON_SRCS *.h *.cpp *.inl)
 COLMAP_ADD_SOURCE_DIR(lib/SiftGPU LIB_SIFT_GPU_SRCS *.h *.cpp *.cu)
 COLMAP_ADD_SOURCE_DIR(lib/SQLite LIB_SQLITE_SRCS *.h *.c)
 COLMAP_ADD_SOURCE_DIR(lib/VLFeat LIB_VLFEAT_SRCS *.h *.c *.tc)
@@ -388,11 +386,9 @@ COLMAP_ADD_SOURCE_DIR(src/controllers CONTROLLERS_SRCS *.h *.cc)
 COLMAP_ADD_SOURCE_DIR(src/estimators ESTIMATORS_SRCS *.h *.cc)
 COLMAP_ADD_SOURCE_DIR(src/exe EXE_SRCS *.h *.cc)
 COLMAP_ADD_SOURCE_DIR(src/feature FEATURE_SRCS *.h *.cc)
-COLMAP_ADD_SOURCE_DIR(src/mvs MVS_SRCS *.h *.cc *.cu)
 COLMAP_ADD_SOURCE_DIR(src/optim OPTIM_SRCS *.h *.cc)
 COLMAP_ADD_SOURCE_DIR(src/retrieval RETRIEVAL_SRCS *.h *.cc)
 COLMAP_ADD_SOURCE_DIR(src/sfm SFM_SRCS *.h *.cc)
-COLMAP_ADD_SOURCE_DIR(src/tools TOOLS_SRCS *.h *.cc)
 COLMAP_ADD_SOURCE_DIR(src/ui UI_SRCS *.h *.cc)
 COLMAP_ADD_SOURCE_DIR(src/util UTIL_SRCS *.h *.cc)
 
@@ -423,56 +419,22 @@ add_library(
     ${UTIL_SRCS}
 )
 
+find_package( TIFF REQUIRED )
+if ( TIFF_FOUND )
+    include_directories( ${TIFF_INCLUDE_DIRS} )
+    list(APPEND COLMAP_EXTERNAL_LIBRARIES ${TIFF_LIBRARIES})
+endif( TIFF_FOUND )
+
 # Prevent the library from being compiled automatically.
 set_target_properties(
     ${COLMAP_SRC_ROOT_FOLDER} PROPERTIES
     EXCLUDE_FROM_ALL 1
     EXCLUDE_FROM_DEFAULT_BUILD 1)
 
-
-################################################################################
-# Install and uninstall scripts
-################################################################################
-
-# Install header files.
-install(DIRECTORY src/
-        DESTINATION include/colmap
-        FILES_MATCHING PATTERN "*.h")
-install(DIRECTORY lib/
-        DESTINATION include/colmap/lib
-        FILES_MATCHING REGEX ".*[.]h|.*[.]hpp|.*[.]inl")
-
-# Generate and install CMake configuration.
-configure_file("${CMAKE_CURRENT_SOURCE_DIR}/cmake/CMakeConfig.cmake.in"
-               "${CMAKE_CURRENT_BINARY_DIR}/COLMAPConfig.cmake" @ONLY)
-install(FILES "${CMAKE_CURRENT_BINARY_DIR}/COLMAPConfig.cmake"
-        DESTINATION "share/colmap")
-configure_file("${CMAKE_CURRENT_SOURCE_DIR}/cmake/CMakeConfigVersion.cmake.in"
-               "${CMAKE_CURRENT_BINARY_DIR}/COLMAPConfigVersion.cmake" @ONLY)
-install(FILES "${CMAKE_CURRENT_BINARY_DIR}/COLMAPConfigVersion.cmake"
-        DESTINATION "share/colmap")
-
-# Install find_package scripts for dependencies.
-install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/cmake
-        DESTINATION share/colmap
-        FILES_MATCHING PATTERN "Find*.cmake")
-
-# Install batch scripts under Windows.
 if(IS_MSVC)
-    install(FILES "scripts/shell/COLMAP.bat" "scripts/shell/RUN_TESTS.bat"
-            PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE
-                        GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE
-            DESTINATION "/")
+    add_compile_options("/bigobj")
 endif()
 
-# Install application meny entry under Linux/Unix.
-if(UNIX AND NOT APPLE)
-    install(FILES "doc/COLMAP.desktop" DESTINATION "share/applications")
-endif()
-
-# Configure the uninstallation script.
-configure_file("${CMAKE_CURRENT_SOURCE_DIR}/cmake/CMakeUninstall.cmake.in"
-               "${CMAKE_CURRENT_BINARY_DIR}/CMakeUninstall.cmake"
-               IMMEDIATE @ONLY)
-add_custom_target(uninstall COMMAND ${CMAKE_COMMAND} -P ${CMAKE_CURRENT_BINARY_DIR}/CMakeUninstall.cmake)
-set_target_properties(uninstall PROPERTIES FOLDER ${CMAKE_TARGETS_ROOT_FOLDER})
+COLMAP_ADD_EXECUTABLE(colmap_exe
+    src/main.cc)
+set_target_properties(colmap_exe PROPERTIES OUTPUT_NAME colmap)

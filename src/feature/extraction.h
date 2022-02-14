@@ -70,20 +70,6 @@ class SiftFeatureExtractor : public Thread {
   std::unique_ptr<JobQueue<internal::ImageData>> writer_queue_;
 };
 
-// Import features from text files. Each image must have a corresponding text
-// file with the same name and an additional ".txt" suffix.
-class FeatureImporter : public Thread {
- public:
-  FeatureImporter(const ImageReaderOptions& reader_options,
-                  const std::string& import_path);
-
- private:
-  void Run();
-
-  const ImageReaderOptions reader_options_;
-  const std::string import_path_;
-};
-
 ////////////////////////////////////////////////////////////////////////////////
 // Implementation
 ////////////////////////////////////////////////////////////////////////////////

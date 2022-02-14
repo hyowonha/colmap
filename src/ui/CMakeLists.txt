@@ -32,11 +32,9 @@
 set(FOLDER_NAME "ui")
 
 COLMAP_ADD_SOURCES(
-    automatic_reconstruction_widget.h automatic_reconstruction_widget.cc
     bundle_adjustment_widget.h bundle_adjustment_widget.cc
     colormaps.h colormaps.cc
     database_management_widget.h database_management_widget.cc
-    dense_reconstruction_widget.h dense_reconstruction_widget.cc
     feature_extraction_widget.h feature_extraction_widget.cc
     feature_matching_widget.h feature_matching_widget.cc
     image_viewer_widget.h image_viewer_widget.cc

@@ -37,21 +37,7 @@
 
 namespace colmap {
 
-int RunPointTriangulatorImpl(Reconstruction& reconstruction,
-                             const std::string database_path,
-                             const std::string image_path,
-                             const std::string output_path,
-                             const IncrementalMapperOptions& mapper_options,
-                             const bool clear_points);
-
-int RunAutomaticReconstructor(int argc, char** argv);
-int RunBundleAdjuster(int argc, char** argv);
-int RunColorExtractor(int argc, char** argv);
-int RunMapper(int argc, char** argv);
-int RunHierarchicalMapper(int argc, char** argv);
-int RunPointFiltering(int argc, char** argv);
-int RunPointTriangulator(int argc, char** argv);
-int RunRigBundleAdjuster(int argc, char** argv);
+int RunSfM(int argc, char** argv);
 
 }  // namespace colmap
 
