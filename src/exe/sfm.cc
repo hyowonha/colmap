@@ -63,7 +63,6 @@ int RunSfM(int argc, char** argv) {
                            &reconstruction_options.camera_model);
   options.AddDefaultOption("single_camera",
                            &reconstruction_options.single_camera);
-  options.AddDefaultOption("sparse", &reconstruction_options.sparse);
   options.AddDefaultOption("num_threads", &reconstruction_options.num_threads);
   options.AddDefaultOption("use_gpu", &reconstruction_options.use_gpu);
   options.AddDefaultOption("gpu_index", &reconstruction_options.gpu_index);
@@ -100,19 +99,14 @@ int RunSfM(int argc, char** argv) {
     LOG(FATAL) << "Invalid quality provided";
   }
 
+
   ReconstructionManager reconstruction_manager;
 
-  if (reconstruction_options.use_gpu && kUseOpenGL) {
-    QApplication app(argc, argv);
-    AutomaticReconstructionController controller(reconstruction_options,
-                                                 &reconstruction_manager);
-    RunThreadWithOpenGLContext(&controller);
-  } else {
-    AutomaticReconstructionController controller(reconstruction_options,
-                                                 &reconstruction_manager);
-    controller.Start();
-    controller.Wait();
-  }
+  CHECK(reconstruction_options.sparse == true);
+  AutomaticReconstructionController controller(reconstruction_options,
+                                                &reconstruction_manager);
+  controller.Start();
+  controller.Wait();
 
   return EXIT_SUCCESS;
 }
