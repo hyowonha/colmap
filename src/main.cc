@@ -58,8 +58,8 @@ int ShowHelp(
   std::cout << "  colmap help [ -h, --help ]" << std::endl;
   std::cout << "  colmap gui" << std::endl;
   std::cout << "  colmap gui -h [ --help ]" << std::endl;
-  std::cout << "  colmap automatic_reconstructor -h [ --help ]" << std::endl;
-  std::cout << "  colmap automatic_reconstructor --image_path IMAGES "
+  std::cout << "  colmap sfm -h [ --help ]" << std::endl;
+  std::cout << "  colmap sfm --image_path IMAGES "
                "--workspace_path WORKSPACE"
             << std::endl;
 
